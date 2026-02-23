@@ -1,123 +1,93 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEO MIKE - Ubicaciones inteligentes</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
-        
-        * {
-            font-family: 'Montserrat', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        .card-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -8px rgba(124,58,237,0.15); }
+        .pulse-animation { animation: pulse-violet 2s infinite; }
+        @keyframes pulse-violet {
+            0%   { box-shadow: 0 0 0 0 rgba(139,92,246,0.6); }
+            70%  { box-shadow: 0 0 0 14px rgba(139,92,246,0); }
+            100% { box-shadow: 0 0 0 0 rgba(139,92,246,0); }
         }
-        
-        html {
-            scroll-behavior: smooth;
+        .hero-blob {
+            background: radial-gradient(ellipse at 60% 50%, rgba(167,139,250,0.18) 0%, transparent 70%),
+                        radial-gradient(ellipse at 20% 80%, rgba(196,181,253,0.12) 0%, transparent 60%);
         }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #0b1c2f 0%, #1a3b5c 100%);
-        }
-        
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-            }
-        }
+        .divider-wave { width:64px; height:4px; background:linear-gradient(90deg,#7c3aed,#a78bfa); border-radius:2px; margin:0 auto 1.5rem; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-white text-gray-800">
+
     <!-- Navbar -->
-    <nav class="gradient-bg text-white py-4 sticky top-0 z-50 shadow-lg">
+    <nav class="bg-white border-b border-gray-100 py-4 sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <i class="fas fa-map-marked-alt text-3xl text-blue-300"></i>
-                <span class="text-2xl font-extrabold tracking-tight">GEO<span class="text-blue-300">MIKE</span></span>
+                <i class="fas fa-map-marked-alt text-2xl text-violet-600"></i>
+                <span class="text-xl font-bold tracking-tight text-gray-900">GEO<span class="text-violet-600">MIKE</span></span>
             </div>
-            
-            <div class="hidden md:flex space-x-8 font-medium">
-                <a href="#inicio" class="hover:text-blue-300 transition">Inicio</a>
-                <a href="#servicios" class="hover:text-blue-300 transition">Servicios</a>
-                <a href="#ubicaciones" class="hover:text-blue-300 transition">Ubicaciones</a>
-                <a href="#contacto" class="hover:text-blue-300 transition">Contacto</a>
+            <div class="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-600">
+                <a href="#inicio"      class="hover:text-violet-600 transition">Inicio</a>
+                <a href="#servicios"   class="hover:text-violet-600 transition">Servicios</a>
+                <a href="#ubicaciones" class="hover:text-violet-600 transition">Ubicaciones</a>
+                <a href="#contacto"    class="hover:text-violet-600 transition">Contacto</a>
             </div>
-            
-            <button class="md:hidden text-2xl" id="menuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="md:hidden text-xl text-gray-600" id="menuBtn"><i class="fas fa-bars"></i></button>
         </div>
-        
-        <!-- Menú móvil -->
-        <div class="md:hidden hidden px-6 pt-4 pb-2" id="mobileMenu">
-            <div class="flex flex-col space-y-3">
-                <a href="#inicio" class="hover:text-blue-300 transition py-2">Inicio</a>
-                <a href="#servicios" class="hover:text-blue-300 transition py-2">Servicios</a>
-                <a href="#ubicaciones" class="hover:text-blue-300 transition py-2">Ubicaciones</a>
-                <a href="#contacto" class="hover:text-blue-300 transition py-2">Contacto</a>
+        <div class="md:hidden hidden px-6 pt-4 pb-3 border-t border-gray-100 bg-white" id="mobileMenu">
+            <div class="flex flex-col space-y-3 text-sm font-medium text-gray-600">
+                <a href="#inicio"      class="hover:text-violet-600 transition py-1">Inicio</a>
+                <a href="#servicios"   class="hover:text-violet-600 transition py-1">Servicios</a>
+                <a href="#ubicaciones" class="hover:text-violet-600 transition py-1">Ubicaciones</a>
+                <a href="#contacto"    class="hover:text-violet-600 transition py-1">Contacto</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section - Inicio -->
-    <section id="inicio" class="gradient-bg text-white py-20 md:py-32">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-12 md:mb-0">
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
-                    Encuentra <span class="text-blue-300">cualquier lugar</span> con precisión
+    <!-- Hero -->
+    <section id="inicio" class="hero-blob py-24 md:py-36 bg-gray-50">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <span class="inline-block text-xs font-semibold uppercase tracking-widest text-violet-600 bg-violet-50 px-3 py-1 rounded-full mb-4">Geolocalizacion avanzada</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-gray-900 mb-5">
+                    Encuentra <span class="text-violet-600">cualquier lugar</span> con precision
                 </h1>
-                <p class="text-xl md:text-2xl mb-8 text-gray-200 font-light">
-                    Tecnología de geolocalización avanzada para negocios, viajes y servicios. Descubre el mundo con GEO MIKE.
+                <p class="text-lg md:text-xl text-gray-500 mb-8 font-light leading-relaxed">
+                    Tecnologia de geolocalizacion para negocios, viajes y servicios. Descubre el mundo con GEO MIKE.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg transition shadow-lg pulse-animation" id="detectarBtn">
-                        <i class="fas fa-location-dot mr-2"></i>Detectar mi ubicación
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button class="bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 px-7 rounded-xl text-base transition shadow-md pulse-animation" id="detectarBtn">
+                        <i class="fas fa-location-dot mr-2"></i>Detectar mi ubicacion
                     </button>
-                    <button class="border-2 border-white hover:bg-white hover:text-blue-900 text-white font-bold py-3 px-8 rounded-full text-lg transition" id="explorarBtn">
+                    <button class="border border-gray-200 hover:border-violet-400 hover:text-violet-600 text-gray-700 font-semibold py-3 px-7 rounded-xl text-base transition bg-white shadow-sm" id="explorarBtn">
                         <i class="fas fa-globe mr-2"></i>Explorar mapa
                     </button>
                 </div>
-                <div class="mt-6 text-sm text-gray-300" id="ubicacionInfo"></div>
+                <div class="mt-5 text-sm text-gray-500" id="ubicacionInfo"></div>
             </div>
-            
             <div class="md:w-1/2 flex justify-center">
-                <div class="relative">
-                    <div class="w-72 h-72 md:w-96 md:h-96 bg-blue-400 rounded-full opacity-20 absolute animate-ping"></div>
-                    <div class="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl">
-                        <i class="fas fa-map-location-dot text-8xl text-blue-300"></i>
-                        <div class="mt-4 grid grid-cols-2 gap-3">
-                            <div class="bg-white/20 p-3 rounded-lg text-center">
-                                <i class="fas fa-city text-2xl"></i>
-                                <p class="text-xs mt-1">Ciudades</p>
-                                <p class="font-bold">150+</p>
-                            </div>
-                            <div class="bg-white/20 p-3 rounded-lg text-center">
-                                <i class="fas fa-flag text-2xl"></i>
-                                <p class="text-xs mt-1">Países</p>
-                                <p class="font-bold">25+</p>
-                            </div>
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 w-72 text-center">
+                    <div class="w-20 h-20 bg-violet-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-map-location-dot text-4xl text-violet-500"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-lg mb-1">Cobertura global</h3>
+                    <p class="text-gray-400 text-sm mb-6">Datos precisos en tiempo real</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-violet-50 rounded-xl p-4">
+                            <p class="text-2xl font-bold text-violet-600">150+</p>
+                            <p class="text-xs text-gray-500 mt-1">Ciudades</p>
+                        </div>
+                        <div class="bg-violet-50 rounded-xl p-4">
+                            <p class="text-2xl font-bold text-violet-600">25+</p>
+                            <p class="text-xs text-gray-500 mt-1">Paises</p>
                         </div>
                     </div>
                 </div>
@@ -126,286 +96,229 @@
     </section>
 
     <!-- Servicios -->
-    <section id="servicios" class="py-20 bg-white">
+    <section id="servicios" class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Nuestros <span class="text-blue-600">Servicios</span></h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Soluciones de geolocalización adaptadas a tus necesidades</p>
+                <div class="divider-wave"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Nuestros <span class="text-violet-600">Servicios</span></h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Soluciones de geolocalizacion adaptadas a tus necesidades</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Servicio 1 -->
-                <div class="bg-gray-50 rounded-xl p-8 shadow-lg card-hover border-t-4 border-blue-500">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-map-pin text-3xl text-blue-600"></i>
+                <div class="rounded-2xl p-8 border border-gray-100 shadow-sm card-hover bg-white">
+                    <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-5">
+                        <i class="fas fa-map-pin text-xl text-violet-600"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Geocodificación precisa</h3>
-                    <p class="text-gray-600">Convierte direcciones en coordenadas exactas y viceversa con nuestra API de última generación.</p>
+                    <h3 class="text-lg font-bold mb-2 text-gray-900">Geocodificacion precisa</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Convierte direcciones en coordenadas exactas y viceversa con nuestra API de ultima generacion.</p>
                 </div>
-                
-                <!-- Servicio 2 -->
-                <div class="bg-gray-50 rounded-xl p-8 shadow-lg card-hover border-t-4 border-blue-500">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-route text-3xl text-blue-600"></i>
+                <div class="rounded-2xl p-8 border border-gray-100 shadow-sm card-hover bg-white">
+                    <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-5">
+                        <i class="fas fa-route text-xl text-violet-600"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Rutas inteligentes</h3>
-                    <p class="text-gray-600">Optimización de rutas en tiempo real considerando tráfico, clima y preferencias del usuario.</p>
+                    <h3 class="text-lg font-bold mb-2 text-gray-900">Rutas inteligentes</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Optimizacion de rutas en tiempo real considerando trafico, clima y preferencias del usuario.</p>
                 </div>
-                
-                <!-- Servicio 3 -->
-                <div class="bg-gray-50 rounded-xl p-8 shadow-lg card-hover border-t-4 border-blue-500">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                        <i class="fas fa-store-alt text-3xl text-blue-600"></i>
+                <div class="rounded-2xl p-8 border border-gray-100 shadow-sm card-hover bg-white">
+                    <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-5">
+                        <i class="fas fa-store-alt text-xl text-violet-600"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Geomarketing</h3>
-                    <p class="text-gray-600">Análisis de ubicación para negocios, zonas de influencia y comportamiento de clientes.</p>
+                    <h3 class="text-lg font-bold mb-2 text-gray-900">Geomarketing</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Analisis de ubicacion para negocios, zonas de influencia y comportamiento de clientes.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Ubicaciones Destacadas -->
-    <section id="ubicaciones" class="py-20 bg-gray-100">
+    <section id="ubicaciones" class="py-24 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Ubicaciones <span class="text-blue-600">Destacadas</span></h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Lugares que puedes explorar con GEO MIKE</p>
+                <div class="divider-wave"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Ubicaciones <span class="text-violet-600">Destacadas</span></h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Lugares que puedes explorar con GEO MIKE</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="ubicacionesContainer">
-                <!-- Se llenará con JavaScript -->
-            </div>
-            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="ubicacionesContainer"></div>
             <div class="text-center mt-12">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition shadow-lg" id="cargarMasBtn">
-                    <i class="fas fa-spinner mr-2"></i>Cargar más ubicaciones
+                <button class="bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 px-8 rounded-xl transition shadow-md text-sm" id="cargarMasBtn">
+                    <i class="fas fa-plus mr-2"></i>Cargar mas ubicaciones
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Mapa Interactivo (Simulado) -->
-    <section class="py-16 bg-white">
+    <!-- Mapa -->
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <div class="bg-gray-200 rounded-2xl overflow-hidden shadow-xl">
-                <div class="relative h-96 bg-gradient-to-br from-blue-900 to-gray-800 flex items-center justify-center">
-                    <!-- Simulación de mapa -->
-                    <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/world-map.png');"></div>
-                    
+            <div class="rounded-3xl overflow-hidden border border-gray-100 shadow-md">
+                <div class="relative h-80 bg-gradient-to-br from-violet-700 to-violet-400 flex items-center justify-center">
+                    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/world-map.png');"></div>
                     <div class="relative z-10 text-center text-white">
-                        <i class="fas fa-map text-6xl mb-4 text-blue-300"></i>
-                        <h3 class="text-3xl font-bold mb-2">Mapa Interactivo</h3>
-                        <p class="text-xl mb-6">Explora miles de ubicaciones en tiempo real</p>
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition" id="abrirMapaBtn">
+                        <i class="fas fa-map text-5xl mb-4 text-white opacity-80"></i>
+                        <h3 class="text-2xl font-bold mb-2">Mapa Interactivo</h3>
+                        <p class="text-base mb-6 text-white opacity-80">Explora miles de ubicaciones en tiempo real</p>
+                        <button class="bg-white text-violet-700 hover:bg-violet-50 font-semibold py-2.5 px-7 rounded-xl transition text-sm shadow" id="abrirMapaBtn">
                             <i class="fas fa-expand mr-2"></i>Abrir mapa completo
                         </button>
                     </div>
-                    
-                    <!-- Marcadores simulados -->
-                    <div class="absolute top-1/4 left-1/4 w-4 h-4 bg-red-500 rounded-full pulse-animation"></div>
-                    <div class="absolute top-1/2 left-1/2 w-4 h-4 bg-green-500 rounded-full pulse-animation"></div>
-                    <div class="absolute bottom-1/3 right-1/3 w-4 h-4 bg-yellow-500 rounded-full pulse-animation"></div>
+                    <div class="absolute top-1/4 left-1/4 w-3 h-3 bg-white rounded-full pulse-animation"></div>
+                    <div class="absolute top-1/2 left-1/2 w-3 h-3 bg-yellow-300 rounded-full pulse-animation"></div>
+                    <div class="absolute bottom-1/3 right-1/3 w-3 h-3 bg-pink-300 rounded-full pulse-animation"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contacto -->
-    <section id="contacto" class="py-20 bg-gray-900 text-white">
+    <section id="contacto" class="py-24 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">¿Listo para <span class="text-blue-400">empezar?</span></h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Contáctanos y descubre cómo GEO MIKE puede ayudarte</p>
+                <div class="divider-wave"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Listo para <span class="text-violet-600">empezar?</span></h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Contactanos y descubre como GEO MIKE puede ayudarte</p>
             </div>
-            
-            <div class="max-w-4xl mx-auto">
-                <form id="contactForm" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" placeholder="Nombre completo" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white" id="nombre" required>
-                        <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white" id="email" required>
+            <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 p-10">
+                <form id="contactForm" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <input type="text" placeholder="Nombre completo"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition"
+                            id="nombre" required>
+                        <input type="email" placeholder="Correo electronico"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition"
+                            id="email" required>
                     </div>
-                    <input type="text" placeholder="Ubicación de interés" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white" id="ubicacionInteres">
-                    <textarea rows="5" placeholder="Mensaje" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white" id="mensaje" required></textarea>
-                    
-                    <div class="text-center">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-12 rounded-full transition text-lg">
-                            <i class="fas fa-paper-plane mr-2"></i>Enviar mensaje
-                        </button>
-                    </div>
-                    
-                    <div id="formMensaje" class="text-center font-semibold"></div>
+                    <input type="text" placeholder="Ubicacion de interes"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition"
+                        id="ubicacionInteres">
+                    <textarea rows="4" placeholder="Mensaje"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition resize-none"
+                        id="mensaje" required></textarea>
+                    <button type="submit" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 px-8 rounded-xl transition text-sm shadow-md">
+                        <i class="fas fa-paper-plane mr-2"></i>Enviar mensaje
+                    </button>
+                    <div id="formMensaje" class="text-center text-sm font-medium"></div>
                 </form>
             </div>
-            
-            <div class="flex flex-wrap justify-center gap-8 mt-16">
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-phone text-2xl text-blue-400"></i>
-                    <span>+1 234 567 890</span>
+            <div class="flex flex-wrap justify-center gap-8 mt-12 text-sm text-gray-500">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-phone text-violet-500"></i><span>+1 234 567 890</span>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-envelope text-2xl text-blue-400"></i>
-                    <span>info@geomike.com</span>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-envelope text-violet-500"></i><span>info@geomike.com</span>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-map-marker-alt text-2xl text-blue-400"></i>
-                    <span>Madrid, España</span>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-map-marker-alt text-violet-500"></i><span>Madrid, Espana</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-950 text-gray-400 py-8">
+    <footer class="bg-gray-900 text-gray-400 py-8">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 GEO MIKE - Todos los derechos reservados</p>
-            <div class="flex justify-center space-x-6 mt-4">
-                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook-f text-xl"></i></a>
-                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter text-xl"></i></a>
-                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-instagram text-xl"></i></a>
-                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+            <p class="text-sm">&copy; 2026 GEO MIKE - Todos los derechos reservados</p>
+            <div class="flex justify-center space-x-5 mt-4">
+                <a href="#" class="hover:text-violet-400 transition"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-violet-400 transition"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-violet-400 transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-violet-400 transition"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript Vanilla -->
     <script>
-        // Datos de ejemplo para ubicaciones
         const ubicacionesData = [
-            { nombre: "Torre Eiffel", ciudad: "París", pais: "Francia", tipo: "Monumento", icono: "🏛️" },
-            { nombre: "Estatua de la Libertad", ciudad: "Nueva York", pais: "EE.UU.", tipo: "Monumento", icono: "🗽" },
-            { nombre: "Gran Muralla China", ciudad: "Beijing", pais: "China", tipo: "Patrimonio", icono: "🧱" },
-            { nombre: "Machu Picchu", ciudad: "Cusco", pais: "Perú", tipo: "Ruinas", icono: "🏔️" },
-            { nombre: "Coliseo Romano", ciudad: "Roma", pais: "Italia", tipo: "Monumento", icono: "🏛️" },
-            { nombre: "Cristo Redentor", ciudad: "Río de Janeiro", pais: "Brasil", tipo: "Estatua", icono: "✝️" },
-            { nombre: "Sagrada Familia", ciudad: "Barcelona", pais: "España", tipo: "Iglesia", icono: "⛪" },
-            { nombre: "Burj Khalifa", ciudad: "Dubái", pais: "EAU", tipo: "Rascacielos", icono: "🏢" },
-            { nombre: "Taj Mahal", ciudad: "Agra", pais: "India", tipo: "Mausoleo", icono: "🕌" }
+            { nombre: "Torre Eiffel",           ciudad: "Paris",          pais: "Francia",  tipo: "Monumento",  icono: "EIFF" },
+            { nombre: "Estatua de la Libertad",  ciudad: "Nueva York",     pais: "EE.UU.",   tipo: "Monumento",  icono: "LIBE" },
+            { nombre: "Gran Muralla China",      ciudad: "Beijing",        pais: "China",    tipo: "Patrimonio", icono: "MURA" },
+            { nombre: "Machu Picchu",            ciudad: "Cusco",          pais: "Peru",     tipo: "Ruinas",     icono: "MACU" },
+            { nombre: "Coliseo Romano",          ciudad: "Roma",           pais: "Italia",   tipo: "Monumento",  icono: "COLI" },
+            { nombre: "Cristo Redentor",         ciudad: "Rio de Janeiro", pais: "Brasil",   tipo: "Estatua",    icono: "CRIS" },
+            { nombre: "Sagrada Familia",         ciudad: "Barcelona",      pais: "Espana",   tipo: "Iglesia",    icono: "SAGR" },
+            { nombre: "Burj Khalifa",            ciudad: "Dubai",          pais: "EAU",      tipo: "Rascacielos",icono: "BURJ" },
+            { nombre: "Taj Mahal",               ciudad: "Agra",           pais: "India",    tipo: "Mausoleo",   icono: "TAJM" }
         ];
+
+        const iconosMap = {
+            EIFF: "fas fa-dungeon", LIBE: "fas fa-landmark", MURA: "fas fa-kaaba",
+            MACU: "fas fa-mountain", COLI: "fas fa-archway", CRIS: "fas fa-cross",
+            SAGR: "fas fa-church", BURJ: "fas fa-building", TAJM: "fas fa-mosque"
+        };
 
         let ubicacionesMostradas = 6;
 
-        // Elementos del DOM
         const ubicacionesContainer = document.getElementById('ubicacionesContainer');
-        const cargarMasBtn = document.getElementById('cargarMasBtn');
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const detectarBtn = document.getElementById('detectarBtn');
-        const explorarBtn = document.getElementById('explorarBtn');
-        const abrirMapaBtn = document.getElementById('abrirMapaBtn');
-        const contactForm = document.getElementById('contactForm');
-        const ubicacionInfo = document.getElementById('ubicacionInfo');
+        const cargarMasBtn         = document.getElementById('cargarMasBtn');
+        const menuBtn              = document.getElementById('menuBtn');
+        const mobileMenu           = document.getElementById('mobileMenu');
+        const detectarBtn          = document.getElementById('detectarBtn');
+        const explorarBtn          = document.getElementById('explorarBtn');
+        const abrirMapaBtn         = document.getElementById('abrirMapaBtn');
+        const contactForm          = document.getElementById('contactForm');
+        const ubicacionInfo        = document.getElementById('ubicacionInfo');
 
-        // Función para renderizar ubicaciones
         function renderizarUbicaciones() {
-            const ubicacionesAMostrar = ubicacionesData.slice(0, ubicacionesMostradas);
-            
-            ubicacionesContainer.innerHTML = ubicacionesAMostrar.map(ubicacion => `
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="h-40 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center text-6xl">
-                        ${ubicacion.icono}
+            const slice = ubicacionesData.slice(0, ubicacionesMostradas);
+            ubicacionesContainer.innerHTML = slice.map(u => `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden card-hover">
+                    <div class="h-36 bg-gradient-to-br from-violet-100 to-violet-50 flex items-center justify-center">
+                        <i class="${iconosMap[u.icono] || 'fas fa-map-pin'} text-4xl text-violet-400"></i>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">${ubicacion.nombre}</h3>
-                        <p class="text-gray-600 mb-1"><i class="fas fa-city mr-2 text-blue-500"></i>${ubicacion.ciudad}, ${ubicacion.pais}</p>
-                        <p class="text-gray-500 text-sm"><i class="fas fa-tag mr-2 text-blue-500"></i>${ubicacion.tipo}</p>
+                        <h3 class="text-base font-bold mb-1 text-gray-900">${u.nombre}</h3>
+                        <p class="text-gray-500 text-sm mb-1"><i class="fas fa-city mr-1 text-violet-400"></i>${u.ciudad}, ${u.pais}</p>
+                        <span class="inline-block text-xs bg-violet-50 text-violet-600 font-medium px-2 py-0.5 rounded-full mt-1">${u.tipo}</span>
                     </div>
                 </div>
             `).join('');
-
-            // Ocultar botón si ya no hay más ubicaciones
-            if (ubicacionesMostradas >= ubicacionesData.length) {
-                cargarMasBtn.style.display = 'none';
-            } else {
-                cargarMasBtn.style.display = 'inline-block';
-            }
+            cargarMasBtn.style.display = ubicacionesMostradas >= ubicacionesData.length ? 'none' : 'inline-block';
         }
 
-        // Inicializar ubicaciones
         renderizarUbicaciones();
 
-        // Evento cargar más ubicaciones
-        cargarMasBtn.addEventListener('click', () => {
-            ubicacionesMostradas += 3;
-            renderizarUbicaciones();
-        });
+        cargarMasBtn.addEventListener('click', () => { ubicacionesMostradas += 3; renderizarUbicaciones(); });
 
-        // Menú móvil toggle
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
-        // Cerrar menú móvil al hacer clic en un enlace
-        document.querySelectorAll('#mobileMenu a').forEach(enlace => {
-            enlace.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Detectar ubicación
         detectarBtn.addEventListener('click', () => {
-            ubicacionInfo.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Obteniendo ubicación...';
-            
+            ubicacionInfo.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Obteniendo ubicacion...';
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude.toFixed(4);
-                        const lon = position.coords.longitude.toFixed(4);
-                        ubicacionInfo.innerHTML = `
-                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
-                            Ubicación detectada: Latitud ${lat}, Longitud ${lon}
-                        `;
+                    pos => {
+                        ubicacionInfo.innerHTML = `<i class="fas fa-check-circle text-violet-500 mr-2"></i>Lat ${pos.coords.latitude.toFixed(4)}, Lon ${pos.coords.longitude.toFixed(4)}`;
                     },
-                    (error) => {
-                        let mensaje = 'Error al obtener ubicación';
-                        if (error.code === 1) mensaje = 'Permiso denegado';
-                        else if (error.code === 2) mensaje = 'Posición no disponible';
-                        else if (error.code === 3) mensaje = 'Tiempo de espera agotado';
-                        
-                        ubicacionInfo.innerHTML = `<i class="fas fa-exclamation-triangle text-yellow-400 mr-2"></i>${mensaje}`;
+                    err => {
+                        const msgs = {1:'Permiso denegado',2:'Posicion no disponible',3:'Tiempo agotado'};
+                        ubicacionInfo.innerHTML = `<i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>${msgs[err.code]||'Error'}`;
                     }
                 );
             } else {
-                ubicacionInfo.innerHTML = '<i class="fas fa-exclamation-triangle text-yellow-400 mr-2"></i>Geolocalización no soportada';
+                ubicacionInfo.innerHTML = '<i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Geolocalizacion no soportada';
             }
         });
 
-        // Botones explorar
-        explorarBtn.addEventListener('click', () => {
-            document.getElementById('ubicaciones').scrollIntoView({ behavior: 'smooth' });
-        });
+        explorarBtn.addEventListener('click', () => document.getElementById('ubicaciones').scrollIntoView({ behavior: 'smooth' }));
+        abrirMapaBtn.addEventListener('click', () => alert('Mapa interactivo - Proximamente disponible'));
 
-        abrirMapaBtn.addEventListener('click', () => {
-            alert('🌍 Mapa interactivo - Próximamente disponible');
-        });
-
-        // Formulario de contacto
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', e => {
             e.preventDefault();
-            
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const mensaje = document.getElementById('mensaje').value;
-            
-            if (nombre && email && mensaje) {
-                const formMensaje = document.getElementById('formMensaje');
-                formMensaje.innerHTML = '<i class="fas fa-check-circle text-green-400 mr-2"></i>¡Mensaje enviado con éxito! Te contactaremos pronto.';
-                formMensaje.className = 'text-green-400 font-semibold';
+            const n = document.getElementById('nombre').value;
+            const em = document.getElementById('email').value;
+            const m = document.getElementById('mensaje').value;
+            if (n && em && m) {
+                const fm = document.getElementById('formMensaje');
+                fm.innerHTML = '<i class="fas fa-check-circle text-violet-500 mr-2"></i>Mensaje enviado con exito! Te contactaremos pronto.';
+                fm.className = 'text-violet-600 font-semibold';
                 contactForm.reset();
-                
-                setTimeout(() => {
-                    formMensaje.innerHTML = '';
-                }, 5000);
+                setTimeout(() => { fm.innerHTML = ''; }, 5000);
             }
         });
 
-        // Smooth scroll para todos los enlaces
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
